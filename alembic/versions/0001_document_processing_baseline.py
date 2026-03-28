@@ -64,8 +64,26 @@ def upgrade() -> None:
         unique=False,
     )
 
+    op.create_table(
+        "job_events",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("job_id", sa.String(length=64), nullable=False),
+        sa.Column("event_type", sa.String(length=128), nullable=False),
+        sa.Column("stage", sa.String(length=64), nullable=False),
+        sa.Column("progress", sa.Integer(), nullable=False),
+        sa.Column("payload", sa.JSON(), nullable=False),
+        sa.Column("created_at", sa.DateTime(), nullable=False),
+        sa.PrimaryKeyConstraint("id"),
+    )
+    op.create_index(op.f("ix_job_events_id"), "job_events", ["id"], unique=False)
+    op.create_index(op.f("ix_job_events_job_id"), "job_events", ["job_id"], unique=False)
+
 
 def downgrade() -> None:
+    op.drop_index(op.f("ix_job_events_job_id"), table_name="job_events")
+    op.drop_index(op.f("ix_job_events_id"), table_name="job_events")
+    op.drop_table("job_events")
+
     op.drop_index("ix_llm_usage_logs_job_id", table_name="llm_usage_logs")
     op.drop_index(op.f("ix_llm_usage_logs_id"), table_name="llm_usage_logs")
     op.drop_table("llm_usage_logs")

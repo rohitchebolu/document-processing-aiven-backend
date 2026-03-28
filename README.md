@@ -56,21 +56,20 @@ FastAPI API
 
 ## Repository Structure
 
-- [app.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/app.py): FastAPI app entrypoint and lifecycle management
-- [src/api/endpoints.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/api/endpoints.py): upload, job status, event history, and SSE endpoints
-- [src/api/routes.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/api/routes.py): API route registration
-- [src/services/document_pipeline.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/services/document_pipeline.py): queue orchestration, event recording, and extraction worker flow
-- [src/services/kafka_service.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/services/kafka_service.py): Aiven Kafka producer integration
-- [src/services/valkey_service.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/services/valkey_service.py): live state caching and event mirroring
-- [src/services/vertex_ai_service.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/services/vertex_ai_service.py): schema loading and extraction orchestration
-- [src/core/extractors/pdf_extractor.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/core/extractors/pdf_extractor.py): grouped PDF extraction pipeline
-- [src/core/processing/prompts.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/core/processing/prompts.py): shared extraction prompt
-- [data/schemas/schema.json](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/data/schemas/schema.json): generic output schema
-- [src/models/extraction_job.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/models/extraction_job.py): extraction job model
-- [src/models/job_event.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/models/job_event.py): durable event history model
-- [src/models/llm_usage.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/src/models/llm_usage.py): LLM usage log model
-- [alembic/versions/0001_document_processing_baseline.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/alembic/versions/0001_document_processing_baseline.py): baseline schema
-- [alembic/versions/0004_add_job_events.py](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/alembic/versions/0004_add_job_events.py): live event history migration
+- [app.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/app.py): FastAPI app entrypoint and lifecycle management
+- [src/api/endpoints.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/api/endpoints.py): upload, job status, event history, and SSE endpoints
+- [src/api/routes.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/api/routes.py): API route registration
+- [src/services/document_pipeline.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/document_pipeline.py): queue orchestration, event recording, and extraction worker flow
+- [src/services/kafka_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/kafka_service.py): Aiven Kafka producer integration
+- [src/services/valkey_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/valkey_service.py): live state caching and event mirroring
+- [src/services/vertex_ai_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/vertex_ai_service.py): schema loading and extraction orchestration
+- [src/core/extractors/pdf_extractor.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/core/extractors/pdf_extractor.py): grouped PDF extraction pipeline
+- [src/core/processing/prompts.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/core/processing/prompts.py): shared extraction prompt
+- [data/schemas/schema.json](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/data/schemas/schema.json): generic output schema
+- [src/models/extraction_job.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/models/extraction_job.py): extraction job model
+- [src/models/job_event.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/models/job_event.py): durable event history model
+- [src/models/llm_usage.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/models/llm_usage.py): LLM usage log model
+- [alembic/versions/0001_document_processing_baseline.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/alembic/versions/0001_document_processing_baseline.py): baseline schema
 
 ## API Endpoints
 
@@ -187,7 +186,7 @@ uv sync
 
 ### 3. Configure environment variables
 
-Start by copying [`.env.example`](C:/Users/Rohith/aiven-services/aiven-pdf-extraction/.env.example) to `.env`, then replace the placeholder values with your Aiven and Vertex settings.
+Start by copying [`.env.example`](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/.env.example) to `.env`, then replace the placeholder values with your Aiven and Vertex settings.
 
 Windows PowerShell:
 
