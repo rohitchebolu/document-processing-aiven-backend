@@ -1,0 +1,815 @@
+{
+  "type": "object",
+  "properties": {
+    "document_type": {
+      "type": ["string", "null"]
+    },
+    "document_subtype": {
+      "type": ["string", "null"]
+    },
+    "document_title": {
+      "type": ["string", "null"]
+    },
+    "document_number": {
+      "type": ["string", "null"]
+    },
+    "document_status": {
+      "type": ["string", "null"]
+    },
+    "issue_date": {
+      "type": ["string", "null"]
+    },
+    "order_date": {
+      "type": ["string", "null"]
+    },
+    "delivery_date": {
+      "type": ["string", "null"]
+    },
+    "due_date": {
+      "type": ["string", "null"]
+    },
+    "service_date": {
+      "type": ["string", "null"]
+    },
+    "currency": {
+      "type": ["string", "null"]
+    },
+    "subtotal_amount": {
+      "type": ["number", "string", "null"]
+    },
+    "tax_amount": {
+      "type": ["number", "string", "null"]
+    },
+    "total_amount": {
+      "type": ["number", "string", "null"]
+    },
+    "declared_value": {
+      "type": ["number", "string", "null"]
+    },
+    "payment_terms": {
+      "type": ["string", "null"]
+    },
+    "payment_method": {
+      "type": ["string", "null"]
+    },
+    "freight_class": {
+      "type": ["string", "null"]
+    },
+    "shipping_method": {
+      "type": ["string", "null"]
+    },
+    "carrier_name": {
+      "type": ["string", "null"]
+    },
+    "vessel_name": {
+      "type": ["string", "null"]
+    },
+    "port_of_loading": {
+      "type": ["string", "null"]
+    },
+    "port_of_discharge": {
+      "type": ["string", "null"]
+    },
+    "hazardous_material_info": {
+      "type": ["string", "null"]
+    },
+    "signature": {
+      "type": ["string", "null"]
+    },
+    "instructions": {
+      "type": ["string", "null"]
+    },
+    "notes": {
+      "type": ["string", "null"]
+    },
+    "shipper": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        },
+        "tax_id": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email",
+        "tax_id"
+      ]
+    },
+    "consignee": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email"
+      ]
+    },
+    "vendor": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        },
+        "tax_id": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email",
+        "tax_id"
+      ]
+    },
+    "buyer": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email"
+      ]
+    },
+    "notify_party": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email"
+      ]
+    },
+    "bill_to": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        },
+        "tax_id": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email",
+        "tax_id"
+      ]
+    },
+    "carrier": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email"
+      ]
+    },
+    "shipping_address": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email"
+      ]
+    },
+    "billing_address": {
+      "type": ["object", "null"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"]
+        },
+        "address1": {
+          "type": ["string", "null"]
+        },
+        "address2": {
+          "type": ["string", "null"]
+        },
+        "city": {
+          "type": ["string", "null"]
+        },
+        "state": {
+          "type": ["string", "null"]
+        },
+        "postal_code": {
+          "type": ["string", "null"]
+        },
+        "country": {
+          "type": ["string", "null"]
+        },
+        "contact_name": {
+          "type": ["string", "null"]
+        },
+        "phone": {
+          "type": ["string", "null"]
+        },
+        "email": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "name",
+        "address1",
+        "address2",
+        "city",
+        "state",
+        "postal_code",
+        "country",
+        "contact_name",
+        "phone",
+        "email"
+      ]
+    },
+    "remittance_bank": {
+      "type": ["object", "null"],
+      "properties": {
+        "bank_name": {
+          "type": ["string", "null"]
+        },
+        "account_number": {
+          "type": ["string", "null"]
+        },
+        "account_holder_name": {
+          "type": ["string", "null"]
+        },
+        "account_balance": {
+          "type": ["number", "string", "null"]
+        },
+        "routing_number": {
+          "type": ["string", "null"]
+        },
+        "iban": {
+          "type": ["string", "null"]
+        },
+        "swift_code": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "bank_name",
+        "account_number",
+        "account_holder_name",
+        "account_balance",
+        "routing_number",
+        "iban",
+        "swift_code"
+      ]
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": ["string", "null"]
+          },
+          "value": {
+            "type": ["string", "null"]
+          },
+          "normalized_key": {
+            "type": ["string", "null"]
+          },
+          "category": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "label",
+          "value",
+          "normalized_key",
+          "category"
+        ]
+      }
+    },
+    "stops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stop_num": {
+            "type": ["integer", "null"]
+          },
+          "stop_type": {
+            "type": ["string", "null"]
+          },
+          "name": {
+            "type": ["string", "null"]
+          },
+          "address1": {
+            "type": ["string", "null"]
+          },
+          "address2": {
+            "type": ["string", "null"]
+          },
+          "city": {
+            "type": ["string", "null"]
+          },
+          "state": {
+            "type": ["string", "null"]
+          },
+          "postal_code": {
+            "type": ["string", "null"]
+          },
+          "country": {
+            "type": ["string", "null"]
+          },
+          "contact_name": {
+            "type": ["string", "null"]
+          },
+          "phone": {
+            "type": ["string", "null"]
+          },
+          "email": {
+            "type": ["string", "null"]
+          },
+          "date": {
+            "type": ["string", "null"]
+          },
+          "time": {
+            "type": ["string", "null"]
+          },
+          "notes": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "stop_num",
+          "stop_type",
+          "name",
+          "address1",
+          "address2",
+          "city",
+          "state",
+          "postal_code",
+          "country",
+          "contact_name",
+          "phone",
+          "email",
+          "date",
+          "time",
+          "notes"
+        ]
+      }
+    },
+    "items_details": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "line_number": {
+            "type": ["string", "integer", "null"]
+          },
+          "item_code": {
+            "type": ["string", "null"]
+          },
+          "description": {
+            "type": ["string", "null"]
+          },
+          "quantity": {
+            "type": ["number", "string", "null"]
+          },
+          "unit_of_measure": {
+            "type": ["string", "null"]
+          },
+          "unit_price": {
+            "type": ["number", "string", "null"]
+          },
+          "line_total": {
+            "type": ["number", "string", "null"]
+          },
+          "currency": {
+            "type": ["string", "null"]
+          },
+          "weight": {
+            "type": ["number", "string", "null"]
+          },
+          "weight_unit": {
+            "type": ["string", "null"]
+          },
+          "length": {
+            "type": ["number", "string", "null"]
+          },
+          "width": {
+            "type": ["number", "string", "null"]
+          },
+          "height": {
+            "type": ["number", "string", "null"]
+          },
+          "dimension_unit": {
+            "type": ["string", "null"]
+          },
+          "freight_class": {
+            "type": ["string", "null"]
+          },
+          "hazardous_material_info": {
+            "type": ["string", "null"]
+          },
+          "purchase_order_number": {
+            "type": ["string", "null"]
+          },
+          "bol_number": {
+            "type": ["string", "null"]
+          },
+          "invoice_number": {
+            "type": ["string", "null"]
+          },
+          "sku": {
+            "type": ["string", "null"]
+          },
+          "notes": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "line_number",
+          "item_code",
+          "description",
+          "quantity",
+          "unit_of_measure",
+          "unit_price",
+          "line_total",
+          "currency",
+          "weight",
+          "weight_unit",
+          "length",
+          "width",
+          "height",
+          "dimension_unit",
+          "freight_class",
+          "hazardous_material_info",
+          "purchase_order_number",
+          "bol_number",
+          "invoice_number",
+          "sku",
+          "notes"
+        ]
+      }
+    },
+    "key_value_pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": ["string", "null"]
+          },
+          "value": {
+            "type": ["string", "null"]
+          },
+          "section": {
+            "type": ["string", "null"]
+          },
+          "page_hint": {
+            "type": ["string", "integer", "null"]
+          }
+        },
+        "required": [
+          "key",
+          "value",
+          "section",
+          "page_hint"
+        ]
+      }
+    }
+  },
+  "required": [
+    "document_type",
+    "document_subtype",
+    "document_title",
+    "document_number",
+    "document_status",
+    "issue_date",
+    "order_date",
+    "delivery_date",
+    "due_date",
+    "service_date",
+    "currency",
+    "subtotal_amount",
+    "tax_amount",
+    "total_amount",
+    "declared_value",
+    "payment_terms",
+    "payment_method",
+    "freight_class",
+    "shipping_method",
+    "carrier_name",
+    "vessel_name",
+    "port_of_loading",
+    "port_of_discharge",
+    "hazardous_material_info",
+    "signature",
+    "instructions",
+    "notes",
+    "shipper",
+    "consignee",
+    "vendor",
+    "buyer",
+    "notify_party",
+    "bill_to",
+    "carrier",
+    "shipping_address",
+    "billing_address",
+    "remittance_bank",
+    "references",
+    "stops",
+    "items_details",
+    "key_value_pairs"
+  ]
+}

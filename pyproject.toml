@@ -1,0 +1,122 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aiven-pdf-extraction"
+version = "1.0.0"
+description = "A FastAPI document extraction service backed by Aiven Kafka, PostgreSQL, and Valkey"
+readme = "README.md"
+requires-python = "==3.12.*"
+license = { text = "MIT" }
+authors = [
+    { name = "Rohit Chebolu" }
+]
+keywords = [
+    "pdf-extraction",
+    "document-processing",
+    "fastapi",
+    "vertex-ai",
+    "gemini",
+    "aiven",
+    "kafka",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    # Core Framework
+    "fastapi==0.115.12",
+    "uvicorn==0.34.2",
+    # Pydantic & Validation
+    "pydantic==2.11.3",
+    "pydantic-settings==2.8.1",
+    # Google Cloud & Vertex AI
+    "vertexai==1.71.1",
+    # PDF Processing
+    "PyPDF2==3.0.1",
+    # Database
+    "sqlalchemy>=2.0,<2.1",
+    "psycopg2-binary==2.9.11",
+    "alembic==1.17.1",
+    # Utilities
+    "python-multipart==0.0.20",
+    "python-dotenv==1.1.0",
+    # Async Processing
+    "aiokafka==0.10.0",
+    "redis==5.2.1"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+    "pytest-cov>=4.0",
+]
+
+[tool.uv]
+# UV-specific settings
+managed = true
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+    "pytest-cov>=4.0",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py310", "py311", "py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "W"]
+ignore = ["E501", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "venv",
+    "build",
+    "dist",
+    ".tox",
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
