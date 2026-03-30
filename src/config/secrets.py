@@ -3,11 +3,40 @@
 from functools import lru_cache
 import logging
 import os
+from pathlib import Path
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 logger = logging.getLogger(__name__)
+
+
+def _resolve_config_path(value: str | None) -> str | None:
+    """Resolve configured file paths against the current workspace when possible."""
+    if not value:
+        return None
+
+    path = Path(value).expanduser()
+    if path.is_absolute():
+        if path.exists():
+            return str(path)
+
+        # Recover from copied .env files that still point at another checkout.
+        path_parts = list(path.parts)
+        if "secrets" in path_parts:
+            secrets_index = path_parts.index("secrets")
+            candidate = Path.cwd().joinpath(*path_parts[secrets_index:])
+            if candidate.exists():
+                logger.warning(
+                    "Configured path %s was not found; using workspace path %s instead.",
+                    path,
+                    candidate,
+                )
+                return str(candidate)
+
+        return str(path)
+
+    return str((Path.cwd() / path).resolve())
 
 
 class SecretsConfig(BaseSettings):
@@ -77,12 +106,18 @@ class SecretsConfig(BaseSettings):
     @classmethod
     def resolve_credentials_path(cls, value: str | None) -> str | None:
         """Resolve the Vertex credentials path when a relative path is supplied."""
-        if value:
-            if os.path.isabs(value):
-                return value
-            return os.path.join(os.getcwd(), value)
+        return _resolve_config_path(value)
 
-        return None
+    @field_validator(
+        "KAFKA_SSL_CA_CERT_PATH",
+        "KAFKA_SSL_ACCESS_CERT_PATH",
+        "KAFKA_SSL_ACCESS_KEY_PATH",
+        mode="before",
+    )
+    @classmethod
+    def resolve_kafka_ssl_paths(cls, value: str | None) -> str | None:
+        """Resolve Kafka SSL material paths relative to the active workspace."""
+        return _resolve_config_path(value)
 
     @field_validator("SQLALCHEMY_DATABASE_URL", mode="before")
     @classmethod
