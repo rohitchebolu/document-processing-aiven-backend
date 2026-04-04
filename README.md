@@ -300,7 +300,7 @@ source.addEventListener("job.completed", (event) => {
 
 A companion frontend demo is available here:
 
-- `https://github.com/rohitchebolu/aiven-doc-processing-ui`
+- [Frontend Demo UI](https://github.com/rohitchebolu/aiven-doc-processing-ui)
 
 The frontend visualizes:
 
