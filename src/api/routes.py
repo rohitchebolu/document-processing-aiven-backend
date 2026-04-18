@@ -23,6 +23,12 @@ router.add_api_route(
 )
 
 router.add_api_route(
+    "/search/jobs",
+    endpoints.search_jobs_endpoint,
+    methods=["GET"],
+)
+
+router.add_api_route(
     "/jobs/{job_id}/stream",
     endpoints.stream_job_events_endpoint,
     methods=["GET"],

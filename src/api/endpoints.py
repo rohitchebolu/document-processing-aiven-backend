@@ -3,10 +3,11 @@ import json
 import logging
 from typing import AsyncIterator
 
-from fastapi import File, Form, Header, HTTPException, Request, UploadFile
+from fastapi import File, Form, Header, HTTPException, Query, Request, UploadFile
 from fastapi.responses import StreamingResponse
 
 from src.services.document_pipeline import document_pipeline
+from src.services.opensearch_service import get_opensearch_service
 
 logger = logging.getLogger(__name__)
 
@@ -118,6 +119,38 @@ async def get_job_events_endpoint(job_id: str, limit: int = 50):
     return {
         "job_id": job_id,
         "events": await document_pipeline.get_job_events(job_id, limit=limit),
+    }
+
+
+async def search_jobs_endpoint(
+    q: str = Query(..., min_length=1, description="Search text"),
+    limit: int = Query(default=20, ge=1, le=100),
+    status: str | None = Query(default=None),
+    channel: str | None = Query(default=None),
+):
+    opensearch = await get_opensearch_service()
+    if not opensearch.is_enabled():
+        raise HTTPException(
+            status_code=503,
+            detail="OpenSearch is not configured. Set OPENSEARCH_URI.",
+        )
+
+    try:
+        hits = await opensearch.search_jobs(
+            query=q,
+            limit=limit,
+            status=status,
+            channel=channel,
+        )
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+
+    return {
+        "query": q,
+        "limit": limit,
+        "filters": {"status": status, "channel": channel},
+        "count": len(hits),
+        "results": hits,
     }
 
 

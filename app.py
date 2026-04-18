@@ -9,6 +9,7 @@ from src.api import router
 import src.models  # noqa: F401
 from src.services.document_pipeline import document_pipeline
 from src.services.kafka_service import get_kafka_service
+from src.services.opensearch_service import get_opensearch_service
 from src.services.valkey_service import get_valkey_service
 
 load_dotenv()
@@ -23,6 +24,7 @@ logging.basicConfig(
 async def lifespan(_: FastAPI):
     kafka_service = await get_kafka_service()
     valkey_service = await get_valkey_service()
+    opensearch_service = await get_opensearch_service()
     await document_pipeline.start()
     try:
         yield
@@ -30,6 +32,7 @@ async def lifespan(_: FastAPI):
         await document_pipeline.stop()
         await kafka_service.stop()
         await valkey_service.close()
+        await opensearch_service.close()
 
 
 app = FastAPI(

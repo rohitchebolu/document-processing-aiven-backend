@@ -54,7 +54,9 @@ dependencies = [
     "python-dotenv==1.1.0",
     # Async Processing
     "aiokafka==0.10.0",
-    "redis==5.2.1"
+    "redis==5.2.1",
+    # Search
+    "opensearch-py==2.8.0"
 ]
 
 [project.optional-dependencies]

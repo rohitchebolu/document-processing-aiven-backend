@@ -82,6 +82,19 @@ class SecretsConfig(BaseSettings):
         description="Aiven Valkey connection URL.",
     )
 
+    OPENSEARCH_URI: str | None = Field(
+        default=None,
+        description="Aiven OpenSearch service URI.",
+    )
+    OPENSEARCH_CA_CERT_PATH: str | None = Field(
+        default=None,
+        description="Path to the Aiven OpenSearch CA certificate.",
+    )
+    OPENSEARCH_INDEX_NAME: str = Field(
+        default="document-extractions",
+        description="OpenSearch index used for extracted documents.",
+    )
+
     ENVIRONMENT: str = Field(
         default="development",
         description="Environment name.",
@@ -112,6 +125,7 @@ class SecretsConfig(BaseSettings):
         "KAFKA_SSL_CA_CERT_PATH",
         "KAFKA_SSL_ACCESS_CERT_PATH",
         "KAFKA_SSL_ACCESS_KEY_PATH",
+        "OPENSEARCH_CA_CERT_PATH",
         mode="before",
     )
     @classmethod

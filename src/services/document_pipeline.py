@@ -17,6 +17,7 @@ from src.database import SessionLocal
 from src.models.extraction_job import ExtractionJob
 from src.models.job_event import JobEvent
 from src.services.kafka_service import get_kafka_service
+from src.services.opensearch_service import get_opensearch_service
 from src.services.llm.usage_tracker import current_extraction_job_id
 from src.services.valkey_service import get_valkey_service
 
@@ -373,6 +374,7 @@ class DocumentPipeline:
                     "result_preview": cleaned_result[0] if cleaned_result else {},
                 },
             )
+            await self._index_completed_job(job=job, cleaned_result=cleaned_result)
             logger.info("Job completed successfully: job_id=%s", job_id)
         except Exception as exc:
             db.rollback()
@@ -607,6 +609,18 @@ class DocumentPipeline:
     async def _get_cached_job_events(self, job_id: str, *, limit: int) -> list[dict[str, Any]]:
         valkey = await get_valkey_service()
         return await valkey.get_job_events(job_id, limit=limit)
+
+    async def _index_completed_job(
+        self,
+        *,
+        job: ExtractionJob,
+        cleaned_result: list[dict[str, Any]],
+    ) -> None:
+        try:
+            opensearch = await get_opensearch_service()
+            await opensearch.index_extraction_job(job, cleaned_result)
+        except Exception:
+            logger.exception("Failed to index completed job in OpenSearch: job_id=%s", job.job_id)
 
 
 document_pipeline = DocumentPipeline()

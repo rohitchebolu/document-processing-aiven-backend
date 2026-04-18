@@ -6,11 +6,12 @@ This project is an open document-processing system for logistics PDFs such as bi
 
 ## Overview
 
-The application is designed around three core Aiven services:
+The application is designed around four core Aiven services:
 
 - `Aiven for Apache Kafka`: asynchronous job queue and progress event backbone
 - `Aiven for PostgreSQL`: durable job state, extracted results, usage logs, and event history
 - `Aiven for Valkey`: low-latency live job state for streaming UI updates
+- `Aiven for OpenSearch`: indexed extraction documents for retrieval and search APIs
 
 The extraction layer uses Vertex AI Gemini with a generic logistics prompt and schema so the system can handle multiple logistics document types with a single pipeline.
 
@@ -21,8 +22,10 @@ The extraction layer uses Vertex AI Gemini with a generic logistics prompt and s
 - Event-driven processing pipeline backed by Aiven Kafka
 - Durable job and event history in Aiven PostgreSQL
 - Live job state mirrored into Aiven Valkey
+- Full-text search over extracted documents in Aiven OpenSearch
 - Server-Sent Events endpoint for realtime frontend updates
 - Polling endpoints for job state and event history
+- Search endpoint for indexed extraction jobs
 - Token and response-time tracking for LLM usage
 
 ## Architecture
@@ -43,6 +46,7 @@ FastAPI API
             +--> Kafka: publish progress and result events
             +--> Valkey: cache latest job state for the UI
             +--> PostgreSQL: persist results and event history
+            +--> OpenSearch: index completed extraction output
             |
             v
       SSE / API Layer
@@ -62,6 +66,7 @@ FastAPI API
 - [src/services/document_pipeline.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/document_pipeline.py): queue orchestration, event recording, and extraction worker flow
 - [src/services/kafka_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/kafka_service.py): Aiven Kafka producer integration
 - [src/services/valkey_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/valkey_service.py): live state caching and event mirroring
+- [src/services/opensearch_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/opensearch_service.py): OpenSearch indexing and query integration
 - [src/services/vertex_ai_service.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/services/vertex_ai_service.py): schema loading and extraction orchestration
 - [src/core/extractors/pdf_extractor.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/core/extractors/pdf_extractor.py): grouped PDF extraction pipeline
 - [src/core/processing/prompts.py](C:/Users/Rohith/aiven-services/fleetenable-pdf-extraction/src/core/processing/prompts.py): shared extraction prompt
@@ -89,6 +94,17 @@ Returns the latest durable and cached state for a job.
 ### `GET /api/jobs/{job_id}/events`
 
 Returns recent durable job events for timeline rendering or polling clients.
+
+### `GET /api/search/jobs`
+
+Searches completed extraction jobs indexed in Aiven OpenSearch.
+
+Query params:
+
+- `q` (required): search text
+- `limit` (optional): max hits, default `20`, max `100`
+- `status` (optional): filter by indexed status
+- `channel` (optional): filter by ingestion channel
 
 ### `GET /api/jobs/{job_id}/stream`
 
@@ -119,6 +135,7 @@ These events are:
 - stored in PostgreSQL
 - mirrored into Valkey
 - published to Kafka event topics on a best-effort basis
+- indexed into OpenSearch after successful extraction completion
 
 ## Requirements
 
@@ -126,6 +143,7 @@ These events are:
 - PostgreSQL database
 - Kafka cluster
 - Valkey instance
+- OpenSearch cluster
 - Vertex AI service account with Gemini access
 
 ## Environment Variables
@@ -145,6 +163,9 @@ These events are:
 
 ### Optional Runtime Settings
 
+- `OPENSEARCH_URI` (full service URI)
+- `OPENSEARCH_CA_CERT_PATH`
+- `OPENSEARCH_INDEX_NAME`
 - `VERTEX_AI_MODEL`
 - `VERTEX_AI_LOCATION`
 - `KAFKA_UPLOAD_TOPIC`
@@ -216,6 +237,10 @@ KAFKA_SSL_ACCESS_KEY_PATH=secrets/aiven/service.key
 
 VALKEY_URL=rediss://default:<password>@<host>:<port>
 
+OPENSEARCH_URI=https://<username>:<password>@<host>:<port>
+OPENSEARCH_CA_CERT_PATH=secrets/aiven/ca.pem
+OPENSEARCH_INDEX_NAME=document-extractions
+
 KAFKA_UPLOAD_TOPIC=document-extraction.uploads
 KAFKA_UPLOAD_CONSUMER_GROUP=document-extraction-workers
 KAFKA_JOBS_TOPIC=document.jobs
@@ -279,6 +304,12 @@ curl "http://127.0.0.1:8000/api/jobs/<job_id>"
 curl "http://127.0.0.1:8000/api/jobs/<job_id>/events"
 ```
 
+### Search indexed jobs
+
+```bash
+curl "http://127.0.0.1:8000/api/search/jobs?q=invoice%20number&limit=10"
+```
+
 ### Consume the live SSE stream
 
 Browser example:
@@ -308,6 +339,7 @@ The frontend visualizes:
 - live pipeline timeline with stage-by-stage progress
 - durable PostgreSQL-backed event history
 - Aiven service cards showing Kafka, PostgreSQL, and Valkey roles
+- OpenSearch-backed search workflows for previously extracted jobs
 - current job state and system-performance summary
 - SSE-driven live updates from the backend
 
@@ -320,7 +352,7 @@ The current frontend is designed as a realtime operations dashboard rather than 
 It includes:
 
 - a top-level Aiven contest demo header and active job indicator
-- service cards for `Apache Kafka`, `PostgreSQL`, and `Valkey`
+- service cards for `Apache Kafka`, `PostgreSQL`, `Valkey`, and `OpenSearch`
 - an upload panel to start extraction runs
 - a live pipeline panel that moves through stages such as `Uploaded`, `Queued`, `Processing`, `Grouping`, `Extracting`, and `Completed`
 - an event history panel showing durable backend events in execution order
@@ -331,6 +363,7 @@ This layout helps viewers immediately understand the architecture:
 - `Kafka` is responsible for moving work through the pipeline
 - `PostgreSQL` keeps the job history and durable event trail
 - `Valkey` powers the live feel of the dashboard
+- `OpenSearch` enables retrieval and full-text search on extracted payloads
 
 That is an important part of the project story: the UI is intentionally built to make the value of the Aiven services visible, not hidden behind infrastructure.
 
